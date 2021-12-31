@@ -5,17 +5,17 @@
     <link rel="stylesheet" href="/app.css">
 </head>
 <body>
-    <?php foreach ($posts as $post) : ?>
-        <article>
+    @foreach ($posts as $post)
+        <article class="{{$loop->even ? 'foobar' : ''}}">
             <h1>
-                <a href="/posts/<?=$post->slug;?>">
-                    <?=$post->title?>
+                <a href="/posts/{{$post->slug}}">
+                    {{$post->title}}
                 </a>
             </h1>
             <div>
-                <?=$post->body?>
+                {{$post->excerpt}}
             </div>
         </article>
-    <?php endforeach;?>
+   @endforeach
 </body>
 </html>
