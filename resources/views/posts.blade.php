@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Ies Manacor</title>
-    <link rel="stylesheet" href="/app.css">
-</head>
-<body>
+<x-layout>
     @foreach ($posts as $post)
         <article class="{{$loop->even ? 'foobar' : ''}}">
             <h1>
@@ -16,6 +10,5 @@
                 {{$post->excerpt}}
             </div>
         </article>
-   @endforeach
-</body>
-</html>
+    @endforeach
+</x-layout>
