@@ -17,10 +17,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        User::truncate();
+        /*User::truncate();
         Category::truncate();
-        Post::truncate();
+        Post::truncate();*/
 
+        $user = User::factory()->create([
+            'name' => 'Andres G.B'
+        ]);
+
+        Post::factory(5)->create([
+            'user_id' => $user->id
+        ]);
+
+        /*
         $user = User::factory()->create();
 
         $personal = Category::create([
@@ -57,5 +66,6 @@ class DatabaseSeeder extends Seeder
             de disparos en primera persona, de estilo bélico, desarrollada principal e inicialmente por Infinity Ward,
             Treyarch, Sledgehammer Games y en menor proporción Raven Software y distribuida por Activision.</p>'
         ]);
+        */
     }
 }
