@@ -23,8 +23,16 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 });*/
 
 Route::get('/', function () {
+    $posts =  Post::with('category','author');
+
+    if (request('search')) {
+        $posts
+            ->where('title', 'like','%' . request('search') . '%')
+            ->orWhere('body', 'like','%' . request('search') . '%');
+    }
+
     return view('posts', [
-        'posts' => Post::with('category','author')->get(),
+        'posts' => $posts->get(),
         'categories' => Category::all()
     ]);
 })->name('home');
@@ -35,6 +43,7 @@ Route::get('posts/{post:slug}', function (Post $post) {
        'post' => $post
     ]);
 });
+
 Route::get('categories/{category:slug}', function (Category $category) {
 
     return view('posts', [
@@ -43,6 +52,7 @@ Route::get('categories/{category:slug}', function (Category $category) {
         'categories' => Category::all()
     ]);
 })->name('category');
+
 Route::get('authors/{author:username}', function (User $author) {
 
     return view('posts', [
