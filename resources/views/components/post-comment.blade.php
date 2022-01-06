@@ -3,7 +3,7 @@
 <x-panel class="bg-gray-50">
     <article class="flex space-x">
         <div class="flex-shrink-0">
-            <img src="https://i.pravatar.cc/?u={{$comment->id}}" alt="" width="60" height="60" class="rounded-xl">
+            <img src="https://i.pravatar.cc/?u={{$comment->user_id}}" alt="" width="60" height="60" class="rounded-xl">
         </div>
 
         <div style="padding-left: 20px">
@@ -12,7 +12,7 @@
 
                 <p class="text-xs">
                     Posted
-                    <time>{{$comment->created_at->diffForHumans()}}</time>
+                    <time>{{$comment->created_at->format('F j, Y, g:i a')}}</time>
                 </p>
             </header>
 

@@ -24,7 +24,7 @@
                         <button type="submit">Log Out</button>
                     </form>
                 @else
-                    <a href="/register" class="text-xs font-bold uppercase">Register</a>
+                    <a href="/register" class="text-xs font-bold uppercase pr-3">Register</a>
                     <a href="/login" class="text-xs font-bold uppercase">Log In</a>
                 @endauth
 
