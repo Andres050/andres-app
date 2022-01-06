@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use phpDocumentor\Reflection\Types\Integer;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,89 +19,64 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        /*User::truncate();
-        Category::truncate();
-        Post::truncate();*/
+        // Por cada for significa que hay 1 usuario con una categoria pero que tiene 10 posts con un commentario en ellos
+        for ($i = 0; $i < 10; $i++) {
+            if ($i == 0) {
+                $user1 = User::factory()->create([
+                    'name' => 'Andres G.B'
+                ]);
+                $category1 = Category::factory()->create([
+                    'name' => 'Work',
+                    'slug' => 'working'
+                ]);
+            }
+            $post1 = Post::factory()->create([
+                'user_id' => $user1->id,
+                'category_id' => $category1->id
+            ]);
+            Comment::factory()->create([
+                'user_id' => $user1->id,
+                'post_id' => $post1->id
+            ]);
+        }
+        for ($i = 0; $i < 10; $i++) {
+            if ($i == 0) {
+                $user1 = User::factory()->create([
+                    'name' => 'Pedro H. C.'
+                ]);
+                $category1 = Category::factory()->create([
+                    'name' => 'Personal',
+                    'slug' => 'personal'
+                ]);
+            }
+            $post1 = Post::factory()->create([
+                'user_id' => $user1->id,
+                'category_id' => $category1->id
+            ]);
+            Comment::factory()->create([
+                'user_id' => $user1->id,
+                'post_id' => $post1->id
+            ]);
+        }
+        for ($i = 0; $i < 10; $i++) {
+            if ($i == 0) {
+                $user1 = User::factory()->create([
+                    'name' => 'Momo'
+                ]);
+                $category1 = Category::factory()->create([
+                    'name' => 'Buisness',
+                    'slug' => 'buisness'
+                ]);
+            }
+            $post1 = Post::factory()->create([
+                'user_id' => $user1->id,
+                'category_id' => $category1->id
+            ]);
 
-        $user1 = User::factory()->create([
-            'name' => 'Andres G.B'
-        ]);
-
-        $category1 = Category::factory()->create([
-            'name' => 'Work',
-            'slug' => 'working'
-        ]);
-
-        Post::factory(10)->create([
-            'user_id' => $user1->id,
-            'category_id' => $category1->id
-        ]);
-
-        $user1 = User::factory()->create([
-            'name' => 'Pedro H. C.'
-        ]);
-
-        $category1 = Category::factory()->create([
-            'name' => 'Personal',
-            'slug' => 'personal'
-        ]);
-
-        Post::factory(10)->create([
-            'user_id' => $user1->id,
-            'category_id' => $category1->id
-        ]);
-
-        $user1 = User::factory()->create([
-            'name' => 'Momo'
-        ]);
-
-        $category1 = Category::factory()->create([
-            'name' => 'Buisness',
-            'slug' => 'buisness'
-        ]);
-
-        Post::factory(10)->create([
-            'user_id' => $user1->id,
-            'category_id' => $category1->id
-        ]);
-
-        /*
-        $user = User::factory()->create();
-
-        $personal = Category::create([
-            'name' => 'Personal',
-            'slug' => 'personal'
-        ]);
-        $family = Category::create([
-            'name' => 'Family',
-            'slug' => 'family'
-        ]);
-        $work = Category::create([
-            'name' => 'Work',
-            'slug' => 'work'
-        ]);
-
-        Post::create([
-            'user_id' => $user->id,
-            'category_id' => $family->id,
-            'title' => 'My Family Post',
-            'slug' => 'my-first-post',
-            'excerpt' => '<p>Lorem ipsum dolar sit amet.</p>',
-            'body' => '<p>Call of Duty (en español: «La llamada del deber») es una serie de unos videojuegos
-            de disparos en primera persona, de estilo bélico, desarrollada principal e inicialmente por Infinity Ward,
-            Treyarch, Sledgehammer Games y en menor proporción Raven Software y distribuida por Activision.</p>'
-        ]);
-
-        Post::create([
-            'user_id' => $user->id,
-            'category_id' => $work->id,
-            'title' => 'My Work Post',
-            'slug' => 'my-work-post',
-            'excerpt' => '<p>Lorem ipsum dolar sit amet.</p>',
-            'body' => '<p>Call of Duty (en español: «La llamada del deber») es una serie de unos videojuegos
-            de disparos en primera persona, de estilo bélico, desarrollada principal e inicialmente por Infinity Ward,
-            Treyarch, Sledgehammer Games y en menor proporción Raven Software y distribuida por Activision.</p>'
-        ]);
-        */
+            Comment::factory(3)->create([
+                'user_id' => $user1->id,
+                'post_id' => $post1->id
+            ]);
+        }
     }
 }
