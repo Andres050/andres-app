@@ -17,7 +17,7 @@
                     required></textarea>
 
                 @error('body')
-                <span class="text-xs text-red-500">{{ $message }}</span>
+                    <span class="text-xs text-red-500">{{ $message }}</span>
                 @enderror
             </div>
             <footer class="flex justify-end mt-6 pt-6 border-t border-gray-200">
