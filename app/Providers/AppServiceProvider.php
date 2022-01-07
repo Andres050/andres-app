@@ -18,9 +18,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //app()->bind('foo', function () {
-        //  return 'bar';
-        //});
 
         app()->bind(Newsletter::class, function () {
             $client = (new ApiClient())->setConfig([
