@@ -16,12 +16,10 @@
                     placeholder="Quick, thing of something to say!"
                     required></textarea>
 
-                @error('body')
-                    <span class="text-xs text-red-500">{{ $message }}</span>
-                @enderror
+                <x-form.error name="body"/>
             </div>
             <footer class="flex justify-end mt-6 pt-6 border-t border-gray-200">
-                <x-submit-button>Post</x-submit-button>
+                <x-form.button>Post</x-form.button>
             </footer>
         </form>
     </x-panel>
