@@ -18,19 +18,10 @@ class AdminPostController extends Controller
     }
     public function store() {
 
-        $attributes = request()->validate([
-            'title' => 'required',
-            'thumbnail' => 'required|image',
-            'slug' => ['required',Rule::unique('posts','slug')],
-            'excerpt' => 'required',
-            'body' => 'required',
-            'category_id' => ['required',Rule::exists('categories','id')],
-        ]);
-
-        $attributes['user_id'] = auth()->id();
-        $attributes['thumbnail'] = "storage/".request()->file('thumbnail')->store('thumbnails');
-
-        Post::create($attributes);
+        Post::create(array_merge($this->validatePost(),[
+            'user_id' => auth()->id(),
+            'thumbnail' => "storage/".request()->file('thumbnail')->store('thumbnails')
+        ]));
 
         return redirect('/')->with('success','Your post is created by auth id = '.auth()->id());
     }
@@ -42,14 +33,7 @@ class AdminPostController extends Controller
     }
 
     public function update(Post $post) {
-        $attributes = request()->validate([
-            'title' => 'required',
-            'thumbnail' => 'image',
-            'slug' => ['required',Rule::unique('posts','slug')->ignore($post->id)],
-            'excerpt' => 'required',
-            'body' => 'required',
-            'category_id' => ['required',Rule::exists('categories','id')],
-        ]);
+        $attributes = $this->validatePost($post);
 
         if (isset($attributes['thumbnail'])) {
             $attributes['thumbnail'] = "storage/".request()->file('thumbnail')->store('thumbnails');
@@ -64,5 +48,20 @@ class AdminPostController extends Controller
         $postShow = $post;
         $post->delete();
         return back()->with('success','Post ('. $postShow->title.') Deleted!');
+    }
+
+    protected function validatePost(?Post $post = null) {
+        if (!isset($post)) {
+            $post = new Post();
+        }
+
+        return request()->validate([
+            'title' => 'required',
+            'thumbnail' => $post->exists ? ['image'] : ['required','image'],
+            'slug' => ['required',Rule::unique('posts','slug')->ignore($post)],
+            'excerpt' => 'required',
+            'body' => 'required',
+            'category_id' => ['required',Rule::exists('categories','id')],
+        ]);
     }
 }
